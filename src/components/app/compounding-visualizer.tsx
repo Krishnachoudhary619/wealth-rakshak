@@ -1,0 +1,159 @@
+"use client";
+
+import { useState, useMemo } from "react";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { Slider } from "@/components/ui/slider";
+import { Label } from "@/components/ui/label";
+import {
+  ChartContainer,
+  ChartTooltip,
+  ChartTooltipContent,
+  ChartLegend,
+  ChartLegendContent,
+} from "@/components/ui/chart";
+import { Bar, BarChart, XAxis, YAxis } from "recharts";
+import { ChartConfig } from "@/components/ui/chart";
+import { TrendingUp } from "lucide-react";
+
+const chartConfig = {
+  invested: {
+    label: "Invested",
+    color: "hsl(var(--chart-2))",
+  },
+  returns: {
+    label: "Returns",
+    color: "hsl(var(--chart-1))",
+  },
+} satisfies ChartConfig;
+
+const formatCurrency = (value: number) =>
+  new Intl.NumberFormat("en-IN", {
+    style: "currency",
+    currency: "INR",
+    maximumFractionDigits: 0,
+  }).format(value);
+
+export function CompoundingVisualizer() {
+  const [initialInvestment, setInitialInvestment] = useState(50000);
+  const [monthlyInvestment, setMonthlyInvestment] = useState(10000);
+  const [timeHorizon, setTimeHorizon] = useState(15);
+  const [expectedReturn, setExpectedReturn] = useState(12);
+
+  const chartData = useMemo(() => {
+    const data = [];
+    let totalInvested = initialInvestment;
+    let totalValue = initialInvestment;
+
+    for (let year = 1; year <= timeHorizon; year++) {
+      totalValue += monthlyInvestment * 12;
+      totalInvested += monthlyInvestment * 12;
+      totalValue *= 1 + expectedReturn / 100;
+
+      data.push({
+        year: `Year ${year}`,
+        invested: Math.round(totalInvested),
+        returns: Math.round(totalValue - totalInvested),
+      });
+    }
+    return data;
+  }, [initialInvestment, monthlyInvestment, timeHorizon, expectedReturn]);
+
+  const finalValue = chartData.length > 0 ? chartData[chartData.length - 1].invested + chartData[chartData.length - 1].returns : initialInvestment;
+  const totalInvested = chartData.length > 0 ? chartData[chartData.length - 1].invested : initialInvestment;
+
+  return (
+    <section id="calculator" className="w-full py-12 md:py-24 lg:py-32 bg-background">
+      <div className="container mx-auto px-4 md:px-6">
+        <div className="flex flex-col items-center justify-center space-y-4 text-center mb-12">
+          <div className="space-y-3">
+            <div className="inline-block rounded-lg bg-primary/10 px-3 py-1 text-sm text-primary font-medium font-headline">Visualize Your Wealth</div>
+            <h2 className="text-3xl font-bold font-headline tracking-tighter sm:text-5xl text-primary">The Power of Compounding</h2>
+            <p className="max-w-[900px] text-foreground/80 md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
+              Use our interactive tool to see how consistent, long-term investment can grow your wealth exponentially over time. Adjust the sliders to match your financial goals.
+            </p>
+          </div>
+        </div>
+
+        <Card className="shadow-lg">
+          <div className="grid gap-6 lg:grid-cols-5">
+            <div className="lg:col-span-2 p-6 space-y-8">
+              <div className="space-y-2">
+                <div className="flex justify-between">
+                  <Label htmlFor="initial-investment">Initial Investment</Label>
+                  <span className="font-bold font-headline text-primary">{formatCurrency(initialInvestment)}</span>
+                </div>
+                <Slider id="initial-investment" value={[initialInvestment]} onValueChange={([val]) => setInitialInvestment(val)} min={0} max={1000000} step={10000} />
+              </div>
+              <div className="space-y-2">
+                <div className="flex justify-between">
+                  <Label htmlFor="monthly-investment">Monthly Investment</Label>
+                  <span className="font-bold font-headline text-primary">{formatCurrency(monthlyInvestment)}</span>
+                </div>
+                <Slider id="monthly-investment" value={[monthlyInvestment]} onValueChange={([val]) => setMonthlyInvestment(val)} min={1000} max={100000} step={1000} />
+              </div>
+              <div className="space-y-2">
+                <div className="flex justify-between">
+                  <Label htmlFor="time-horizon">Time Horizon (Years)</Label>
+                  <span className="font-bold font-headline text-primary">{timeHorizon}</span>
+                </div>
+                <Slider id="time-horizon" value={[timeHorizon]} onValueChange={([val]) => setTimeHorizon(val)} min={1} max={40} step={1} />
+              </div>
+              <div className="space-y-2">
+                <div className="flex justify-between">
+                  <Label htmlFor="expected-return">Expected Annual Return (%)</Label>
+                  <span className="font-bold font-headline text-primary">{expectedReturn}%</span>
+                </div>
+                <Slider id="expected-return" value={[expectedReturn]} onValueChange={([val]) => setExpectedReturn(val)} min={1} max={25} step={1} />
+              </div>
+            </div>
+            <div className="lg:col-span-3 p-6 bg-primary/5 rounded-r-lg">
+              <CardHeader className="p-0 mb-4">
+                <CardTitle className="font-headline text-2xl">Projected Growth</CardTitle>
+                <CardDescription>Your investment journey over {timeHorizon} years.</CardDescription>
+              </CardHeader>
+              <CardContent className="p-0">
+                <ChartContainer config={chartConfig} className="h-[300px] w-full">
+                  <BarChart data={chartData} accessibilityLayer stackOffset="sign">
+                    <XAxis dataKey="year" tickLine={false} axisLine={false} tickMargin={8} fontSize={12} />
+                    <YAxis tickFormatter={(value) => `₹${Number(value) / 100000}L`} tickLine={false} axisLine={false} width={60}/>
+                    <ChartTooltip
+                      content={
+                        <ChartTooltipContent
+                          formatter={(value, name) => (
+                            <div className="flex items-center">
+                              <div className={`h-2.5 w-2.5 rounded-sm bg-[--color-${name}] mr-2`}/>
+                              {chartConfig[name as keyof typeof chartConfig]?.label}: {formatCurrency(value as number)}
+                            </div>
+                          )}
+                        />
+                      }
+                    />
+                    <ChartLegend content={<ChartLegendContent />} />
+                    <Bar dataKey="invested" stackId="a" fill="var(--color-invested)" radius={[0, 0, 4, 4]} />
+                    <Bar dataKey="returns" stackId="a" fill="var(--color-returns)" radius={[4, 4, 0, 0]} />
+                  </BarChart>
+                </ChartContainer>
+                <div className="mt-6 flex justify-around text-center p-4 bg-background rounded-lg shadow-inner">
+                  <div>
+                    <p className="text-sm text-muted-foreground">Total Invested</p>
+                    <p className="text-2xl font-bold font-headline text-accent">{formatCurrency(totalInvested)}</p>
+                  </div>
+                  <div>
+                    <p className="text-sm text-muted-foreground">Projected Value</p>
+                    <p className="text-2xl font-bold font-headline text-primary">{formatCurrency(finalValue)}</p>
+                  </div>
+                </div>
+              </CardContent>
+            </div>
+          </div>
+        </Card>
+      </div>
+    </section>
+  );
+}

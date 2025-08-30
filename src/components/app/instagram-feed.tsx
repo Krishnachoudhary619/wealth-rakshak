@@ -1,0 +1,55 @@
+import Image from "next/image";
+import { Button } from "../ui/button";
+import { Instagram } from "lucide-react";
+
+const reels = [
+    { id: 1, src: "https://picsum.photos/300/500?random=1", alt: "Market insights reel", hint: "market chart" },
+    { id: 2, src: "https://picsum.photos/300/500?random=2", alt: "Success story reel", hint: "happy person" },
+    { id: 3, src: "https://picsum.photos/300/500?random=3", alt: "Investment tips reel", hint: "lightbulb idea" },
+    { id: 4, src: "https://picsum.photos/300/500?random=4", alt: "Q&A session reel", hint: "question mark" },
+]
+
+export function InstagramFeed() {
+  return (
+    <section id="social" className="w-full py-12 md:py-24 lg:py-32 bg-primary/5">
+      <div className="container mx-auto px-4 md:px-6">
+        <div className="flex flex-col items-center justify-center space-y-4 text-center mb-12">
+          <div className="space-y-3">
+            <div className="inline-block rounded-lg bg-accent/10 px-3 py-1 text-sm text-accent font-medium font-headline">Stay Connected</div>
+            <h2 className="text-3xl font-bold font-headline tracking-tighter sm:text-5xl text-primary">Latest Insights & Stories</h2>
+            <p className="max-w-[900px] text-foreground/80 md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
+              Follow us on Instagram for daily market updates, investment tips, and success stories from our clients.
+            </p>
+          </div>
+        </div>
+
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
+            {reels.map(reel => (
+                <a key={reel.id} href="https://instagram.com" target="_blank" rel="noopener noreferrer" className="group relative block overflow-hidden rounded-xl shadow-lg">
+                    <Image
+                        src={reel.src}
+                        alt={reel.alt}
+                        width={300}
+                        height={500}
+                        data-ai-hint={reel.hint}
+                        className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+                    <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                        <Instagram className="h-12 w-12 text-white" />
+                    </div>
+                </a>
+            ))}
+        </div>
+        <div className="text-center mt-12">
+            <Button asChild size="lg" className="bg-primary hover:bg-primary/90 text-primary-foreground shadow-md transition-transform hover:scale-105">
+                <a href="https://instagram.com" target="_blank" rel="noopener noreferrer">
+                    <Instagram className="mr-2 h-5 w-5" />
+                    Follow on Instagram
+                </a>
+            </Button>
+        </div>
+      </div>
+    </section>
+  );
+}
