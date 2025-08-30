@@ -127,7 +127,12 @@ export function CompoundingVisualizer() {
                         <ChartTooltipContent
                           formatter={(value, name) => (
                             <div className="flex items-center">
-                              <div className={`h-2.5 w-2.5 rounded-sm bg-[--color-${name}] mr-2`}/>
+                               <div
+                                className="mr-2 h-2.5 w-2.5 shrink-0 rounded-[2px]"
+                                style={{
+                                  backgroundColor: `var(--color-${name})`,
+                                }}
+                              />
                               {chartConfig[name as keyof typeof chartConfig]?.label}: {formatCurrency(value as number)}
                             </div>
                           )}
