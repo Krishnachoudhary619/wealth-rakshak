@@ -81,48 +81,49 @@ export function CompoundingVisualizer() {
 
         <Card className="shadow-lg overflow-hidden">
           <div className="grid lg:grid-cols-5">
-            <div className="lg:col-span-2 p-4 space-y-6">
+            <div className="lg:col-span-2 p-6 space-y-6">
               <div className="space-y-2">
                 <div className="flex justify-between items-center">
                   <Label htmlFor="initial-investment" className="text-sm">Initial Investment</Label>
-                  <span className="font-bold font-headline text-primary text-sm">{formatCurrency(initialInvestment)}</span>
+                  <span className="font-bold font-headline text-primary text-lg">{formatCurrency(initialInvestment)}</span>
                 </div>
                 <Slider id="initial-investment" value={[initialInvestment]} onValueChange={([val]) => setInitialInvestment(val)} min={0} max={1000000} step={10000} />
               </div>
               <div className="space-y-2">
                 <div className="flex justify-between items-center">
                   <Label htmlFor="monthly-investment" className="text-sm">Monthly Investment</Label>
-                  <span className="font-bold font-headline text-primary text-sm">{formatCurrency(monthlyInvestment)}</span>
+                  <span className="font-bold font-headline text-primary text-lg">{formatCurrency(monthlyInvestment)}</span>
                 </div>
                 <Slider id="monthly-investment" value={[monthlyInvestment]} onValueChange={([val]) => setMonthlyInvestment(val)} min={1000} max={100000} step={1000} />
               </div>
               <div className="space-y-2">
                 <div className="flex justify-between items-center">
                   <Label htmlFor="time-horizon" className="text-sm">Time Horizon (Years)</Label>
-                  <span className="font-bold font-headline text-primary text-sm">{timeHorizon}</span>
+                  <span className="font-bold font-headline text-primary text-lg">{timeHorizon}</span>
                 </div>
                 <Slider id="time-horizon" value={[timeHorizon]} onValueChange={([val]) => setTimeHorizon(val)} min={1} max={40} step={1} />
               </div>
               <div className="space-y-2">
                 <div className="flex justify-between items-center">
                   <Label htmlFor="expected-return" className="text-sm">Expected Return (%)</Label>
-                  <span className="font-bold font-headline text-primary text-sm">{expectedReturn}%</span>
+                  <span className="font-bold font-headline text-primary text-lg">{expectedReturn}%</span>
                 </div>
                 <Slider id="expected-return" value={[expectedReturn]} onValueChange={([val]) => setExpectedReturn(val)} min={1} max={25} step={1} />
               </div>
             </div>
-            <div className="lg:col-span-3 p-4 bg-primary/5 rounded-r-lg">
+            <div className="lg:col-span-3 p-6 bg-primary/5 flex flex-col">
               <CardHeader className="p-0 mb-4">
                 <CardTitle className="font-headline text-xl sm:text-2xl">Projected Growth</CardTitle>
                 <CardDescription>Your investment journey over {timeHorizon} years.</CardDescription>
               </CardHeader>
-              <CardContent className="p-0">
-                <div className="h-[250px] sm:h-[300px] w-full">
+              <CardContent className="p-0 flex-1 flex flex-col">
+                 <div className="flex-1 h-[250px] sm:h-[300px] w-full">
                     <ChartContainer config={chartConfig}>
-                      <BarChart data={chartData} accessibilityLayer stackOffset="sign" margin={{ left: -20, right: 10 }}>
+                      <BarChart data={chartData} accessibilityLayer stackOffset="sign" margin={{ top: 20, right: 20, left: -20, bottom: 5 }}>
                         <XAxis dataKey="year" tickLine={false} axisLine={false} tickMargin={8} fontSize={10} />
                         <YAxis tickFormatter={(value) => `₹${Number(value) / 100000}L`} tickLine={false} axisLine={false} width={60} fontSize={10}/>
                         <ChartTooltip
+                          cursor={false}
                           content={
                             <ChartTooltipContent
                                formatter={(value, name) => {
@@ -155,7 +156,7 @@ export function CompoundingVisualizer() {
                       </BarChart>
                     </ChartContainer>
                 </div>
-                <div className="mt-4 flex flex-col items-center sm:flex-row justify-around text-center p-2 bg-background rounded-lg shadow-inner gap-4">
+                <div className="mt-4 flex flex-col items-center sm:flex-row justify-around text-center p-2 bg-background rounded-lg shadow-inner gap-2 sm:gap-4">
                   <div className="w-full">
                     <p className="text-xs text-muted-foreground">Total Invested</p>
                     <p className="text-lg font-bold font-headline text-accent">{formatCurrency(totalInvested)}</p>
