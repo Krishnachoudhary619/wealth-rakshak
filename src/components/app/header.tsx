@@ -2,7 +2,13 @@
 
 import React, { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
-import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
+import {
+  Sheet,
+  SheetContent,
+  SheetTrigger,
+  SheetTitle,
+  SheetClose,
+} from "@/components/ui/sheet";
 import { Menu, Wallet } from "lucide-react";
 import { cn } from "@/lib/utils";
 
@@ -16,6 +22,7 @@ const navLinks = [
 
 export function Header() {
   const [isScrolled, setIsScrolled] = useState(false);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -57,7 +64,7 @@ export function Header() {
           <Button asChild className="hidden md:flex bg-accent hover:bg-accent/90 text-accent-foreground rounded-full shadow-sm">
             <a href="#contact">Contact Us</a>
           </Button>
-          <Sheet>
+          <Sheet open={isMenuOpen} onOpenChange={setIsMenuOpen}>
             <SheetTrigger asChild>
               <Button variant="outline" size="icon" className="md:hidden">
                 <Menu className="h-6 w-6" />
@@ -65,28 +72,33 @@ export function Header() {
               </Button>
             </SheetTrigger>
             <SheetContent side="right">
+              <SheetTitle className="sr-only">Navigation Menu</SheetTitle>
               <div className="grid gap-6 p-6">
                 <a
                   href="#home"
                   className="flex items-center gap-2 font-bold text-xl font-headline text-primary"
+                  onClick={() => setIsMenuOpen(false)}
                 >
                   <Wallet className="h-6 w-6" />
                   <span>Wealth Rakshak</span>
                 </a>
                 <nav className="grid gap-4">
                   {navLinks.map((link) => (
-                    <a
-                      key={link.href}
-                      href={link.href}
-                      className="text-lg font-medium text-foreground/80 transition-colors hover:text-primary"
-                    >
-                      {link.label}
-                    </a>
+                     <SheetClose key={link.href} asChild>
+                        <a
+                        href={link.href}
+                        className="text-lg font-medium text-foreground/80 transition-colors hover:text-primary"
+                        >
+                        {link.label}
+                        </a>
+                    </SheetClose>
                   ))}
                 </nav>
-                <Button asChild className="bg-accent hover:bg-accent/90 text-accent-foreground">
-                  <a href="#contact">Contact Us</a>
-                </Button>
+                <SheetClose asChild>
+                  <Button asChild className="bg-accent hover:bg-accent/90 text-accent-foreground">
+                    <a href="#contact">Contact Us</a>
+                  </Button>
+                </SheetClose>
               </div>
             </SheetContent>
           </Sheet>
