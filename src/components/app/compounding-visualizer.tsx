@@ -80,8 +80,8 @@ export function CompoundingVisualizer() {
           </div>
         </div>
 
-        <Card className="shadow-lg">
-          <div className="grid gap-6 lg:grid-cols-5">
+        <Card className="shadow-lg overflow-hidden">
+          <div className="grid lg:grid-cols-5">
             <div className="lg:col-span-2 p-6 space-y-8">
               <div className="space-y-2">
                 <div className="flex justify-between">
@@ -119,7 +119,7 @@ export function CompoundingVisualizer() {
               </CardHeader>
               <CardContent className="p-0">
                 <ChartContainer config={chartConfig} className="h-[300px] w-full">
-                  <BarChart data={chartData} accessibilityLayer stackOffset="sign">
+                  <BarChart data={chartData} accessibilityLayer stackOffset="sign" margin={{ left: 12, right: 12 }}>
                     <XAxis dataKey="year" tickLine={false} axisLine={false} tickMargin={8} fontSize={12} />
                     <YAxis tickFormatter={(value) => `₹${Number(value) / 100000}L`} tickLine={false} axisLine={false} width={60}/>
                     <ChartTooltip
