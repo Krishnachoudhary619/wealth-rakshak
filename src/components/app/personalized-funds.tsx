@@ -1,6 +1,7 @@
 "use client";
 
-import { useFormState, useFormStatus } from "react-dom";
+import { useActionState } from "react";
+import { useFormStatus } from "react-dom";
 import { getFundsAction } from "@/app/actions";
 import { Button } from "@/components/ui/button";
 import {
@@ -41,7 +42,7 @@ function SubmitButton() {
 }
 
 export function PersonalizedFunds() {
-  const [state, formAction] = useFormState(getFundsAction, initialState);
+  const [state, formAction] = useActionState(getFundsAction, initialState);
 
   return (
     <section id="suggestions" className="w-full py-12 md:py-24 lg:py-32 bg-primary/5">
