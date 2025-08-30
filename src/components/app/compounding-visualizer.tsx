@@ -47,24 +47,24 @@ export function CompoundingVisualizer() {
 
   const chartData = useMemo(() => {
     const data = [];
-    let totalInvested = initialInvestment;
-    let totalValue = initialInvestment;
+    let principal = initialInvestment;
+    let current_value = initialInvestment;
 
     for (let year = 1; year <= timeHorizon; year++) {
-      totalValue += monthlyInvestment * 12;
-      totalInvested += monthlyInvestment * 12;
-      totalValue *= 1 + expectedReturn / 100;
-
+      let yearly_investment = monthlyInvestment * 12;
+      principal += yearly_investment;
+      current_value = (current_value + yearly_investment) * (1 + expectedReturn / 100);
       data.push({
         year: `Year ${year}`,
-        invested: Math.round(totalInvested),
-        returns: Math.round(totalValue - totalInvested),
+        invested: Math.round(principal),
+        returns: Math.round(current_value - principal),
+        total: Math.round(current_value),
       });
     }
     return data;
   }, [initialInvestment, monthlyInvestment, timeHorizon, expectedReturn]);
 
-  const finalValue = chartData.length > 0 ? chartData[chartData.length - 1].invested + chartData[chartData.length - 1].returns : initialInvestment;
+  const finalValue = chartData.length > 0 ? chartData[chartData.length - 1].total : initialInvestment;
   const totalInvested = chartData.length > 0 ? chartData[chartData.length - 1].invested : initialInvestment;
 
   return (
@@ -125,17 +125,27 @@ export function CompoundingVisualizer() {
                     <ChartTooltip
                       content={
                         <ChartTooltipContent
-                          formatter={(value, name) => (
-                            <div className="flex items-center">
-                               <div
-                                className="mr-2 h-2.5 w-2.5 shrink-0 rounded-[2px]"
-                                style={{
-                                  backgroundColor: `var(--color-${name})`,
-                                }}
-                              />
-                              {chartConfig[name as keyof typeof chartConfig]?.label}: {formatCurrency(value as number)}
-                            </div>
-                          )}
+                           formatter={(value, name) => {
+                            const config = chartConfig[name as keyof typeof chartConfig];
+                            return (
+                                <div className="flex items-center">
+                                   <div
+                                    className="mr-2 h-2.5 w-2.5 shrink-0 rounded-[2px]"
+                                    style={{ backgroundColor: config.color }}
+                                  />
+                                  <span>{config.label}: {formatCurrency(value as number)}</span>
+                                </div>
+                              )
+                          }}
+                          labelFormatter={(label, payload) => {
+                            const total = payload?.[0]?.payload.total ?? 0;
+                            return (
+                              <div className="flex flex-col">
+                                <span className="font-bold">{label}</span>
+                                <span className="text-sm">Total: {formatCurrency(total)}</span>
+                              </div>
+                            )
+                          }}
                         />
                       }
                     />
