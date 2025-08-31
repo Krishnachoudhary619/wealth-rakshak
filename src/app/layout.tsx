@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { Toaster } from "@/components/ui/toaster";
 import "./globals.css";
 
-const siteUrl = "https://wealth-rakshak.vercel.app/";
+const siteUrl = "https://wealthrakshak.in/";
 
 export const metadata: Metadata = {
   title: {
