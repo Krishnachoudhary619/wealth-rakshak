@@ -1,4 +1,5 @@
-import { Wallet, Instagram, Phone } from "lucide-react";
+import { Instagram } from "lucide-react";
+import Image from "next/image";
 
 // A simple SVG for WhatsApp icon
 const WhatsAppIcon = (props: React.SVGProps<SVGSVGElement>) => (
@@ -29,9 +30,8 @@ export function Footer() {
         <div className="container mx-auto px-4 py-12 md:px-6">
           <div className="grid gap-8 md:grid-cols-3">
             <div className="space-y-4">
-              <a href="#home" className="flex items-center gap-2 font-bold text-2xl font-headline">
-                <Wallet className="h-7 w-7" />
-                <span>Wealth Rakshak</span>
+              <a href="#home" className="flex items-center gap-2">
+                <Image src="/logo.png" alt="Wealth Rakshak Logo" width={140} height={40} />
               </a>
               <p className="text-sm text-primary-foreground/80 max-w-xs">
                 Your shield for financial security. Let us guide you on your journey to long-term wealth and prosperity.

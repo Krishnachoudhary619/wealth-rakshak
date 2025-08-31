@@ -6,6 +6,9 @@ export const metadata: Metadata = {
   title: "Wealth Compass",
   description:
     "Guiding your financial journey to prosperity with Wealth Rakshak.",
+  icons: {
+    icon: "/logo.png",
+  },
 };
 
 export default function RootLayout({
