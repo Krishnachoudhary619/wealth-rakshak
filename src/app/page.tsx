@@ -1,7 +1,8 @@
 import { Button } from "@/components/ui/button";
 import { Header } from "@/components/app/header";
 import { Footer } from "@/components/app/footer";
-import { CompoundingVisualizer } from "@/components/app/compounding-visualizer";
+import { SIPCalculator } from "@/components/app/sip-calculator";
+import { SWPCalculator } from "@/components/app/swp-calculator";
 import { PersonalizedFunds } from "@/components/app/personalized-funds";
 import { InstagramFeed } from "@/components/app/instagram-feed";
 import { EducationalResources } from "@/components/app/educational-resources";
@@ -110,6 +111,26 @@ const FeaturesSection = () => (
   </section>
 );
 
+const CalculatorsSection = () => (
+    <section id="calculator" className="w-full py-12 md:py-24 lg:py-32 bg-background">
+        <div className="container mx-auto px-4 md:px-6">
+            <div className="flex flex-col items-center justify-center space-y-4 text-center mb-12">
+                <div className="space-y-3">
+                    <div className="inline-block rounded-lg bg-primary/10 px-3 py-1 text-sm text-primary font-medium font-headline">Visualize Your Wealth</div>
+                    <h2 className="text-3xl font-bold font-headline tracking-tighter sm:text-5xl text-primary">Investment Calculators</h2>
+                    <p className="max-w-[900px] text-foreground/80 md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
+                        Use our interactive tools to plan your financial journey, whether you're growing your wealth or planning for a steady income.
+                    </p>
+                </div>
+            </div>
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                <SIPCalculator />
+                <SWPCalculator />
+            </div>
+        </div>
+    </section>
+);
+
 
 export default function Home() {
   return (
@@ -119,7 +140,7 @@ export default function Home() {
         <HeroSection />
         <FeaturesSection />
         <AboutUs />
-        <CompoundingVisualizer />
+        <CalculatorsSection />
         <PersonalizedFunds />
         <EducationalResources />
         <InstagramFeed />
