@@ -14,6 +14,7 @@ import { cn } from "@/lib/utils";
 
 const navLinks = [
   { href: "#home", label: "Home" },
+  { href: "#about", label: "About Us" },
   { href: "#calculator", label: "Calculator" },
   { href: "#suggestions", label: "Suggestions" },
   { href: "#learn", label: "Learn" },
@@ -62,7 +63,7 @@ export function Header() {
         </nav>
         <div className="flex items-center gap-4">
           <Button asChild className="hidden md:flex bg-accent hover:bg-accent/90 text-accent-foreground rounded-full shadow-sm">
-            <a href="#contact">Contact Us</a>
+            <a href="#contact-form">Contact Us</a>
           </Button>
           <Sheet open={isMenuOpen} onOpenChange={setIsMenuOpen}>
             <SheetTrigger asChild>
@@ -96,7 +97,7 @@ export function Header() {
                 </nav>
                 <SheetClose asChild>
                   <Button asChild className="bg-accent hover:bg-accent/90 text-accent-foreground">
-                    <a href="#contact">Contact Us</a>
+                    <a href="#contact-form">Contact Us</a>
                   </Button>
                 </SheetClose>
               </div>

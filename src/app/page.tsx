@@ -6,6 +6,7 @@ import { PersonalizedFunds } from "@/components/app/personalized-funds";
 import { InstagramFeed } from "@/components/app/instagram-feed";
 import { EducationalResources } from "@/components/app/educational-resources";
 import { ContactUs } from "@/components/app/contact-us";
+import { AboutUs } from "@/components/app/about-us";
 import { Target, ShieldCheck } from "lucide-react";
 import Image from "next/image";
 
@@ -40,7 +41,7 @@ const HeroSection = () => (
           </p>
           <div className="flex flex-col gap-4 min-[400px]:flex-row">
             <Button asChild size="lg" className="bg-primary hover:bg-primary/90 text-primary-foreground shadow-md transition-transform hover:scale-105">
-              <a href="#contact">Get Started</a>
+              <a href="#contact-form">Get Started</a>
             </Button>
             <Button asChild variant="outline" size="lg" className="border-primary text-primary hover:bg-primary/5 hover:text-primary shadow-sm transition-transform hover:scale-105">
               <a href="#calculator">See The Magic of Compounding</a>
@@ -48,7 +49,7 @@ const HeroSection = () => (
           </div>
         </div>
         <Image
-          src="https://picsum.photos/800/600"
+          src="https://zenithfinserve.in/wp-content/uploads/2025/01/5-Jan-2023-XX-Things-You-Need-To-Know-About-Mutual-Fund-NAV-12.png"
           alt="A person happily planning their finances"
           width={800}
           height={600}
@@ -113,6 +114,7 @@ export default function Home() {
       <main className="flex-1">
         <HeroSection />
         <FeaturesSection />
+        <AboutUs />
         <CompoundingVisualizer />
         <PersonalizedFunds />
         <EducationalResources />
