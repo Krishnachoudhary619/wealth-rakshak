@@ -27,14 +27,15 @@ export function SWPCalculator() {
   const { finalValue, totalWithdrawal } = useMemo(() => {
     const monthlyReturnRate = expectedReturn / 100 / 12;
     const totalMonths = duration * 12;
-    
-    // Calculate the future value of the initial investment
-    const fvOfInvestment = totalInvestment * Math.pow(1 + monthlyReturnRate, totalMonths);
+    let currentBalance = totalInvestment;
 
-    // Calculate the future value of the series of withdrawals (as an annuity)
-    const fvOfWithdrawals = monthlyWithdrawal * ((Math.pow(1 + monthlyReturnRate, totalMonths) - 1) / monthlyReturnRate);
+    for (let i = 0; i < totalMonths; i++) {
+        const interestEarned = currentBalance * monthlyReturnRate;
+        currentBalance += interestEarned;
+        currentBalance -= monthlyWithdrawal;
+    }
     
-    const calculatedFinalValue = fvOfInvestment - fvOfWithdrawals;
+    const calculatedFinalValue = currentBalance;
     const calculatedTotalWithdrawal = monthlyWithdrawal * totalMonths;
 
     return { 
