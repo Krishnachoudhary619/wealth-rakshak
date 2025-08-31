@@ -43,7 +43,7 @@ export function SIPCalculator() {
   const [timeHorizon, setTimeHorizon] = useState(15);
   const [expectedReturn, setExpectedReturn] = useState(12);
 
-  const { chartData, finalValue, totalInvested } = useMemo(() => {
+  const { chartData, finalValue, totalInvested, totalReturns } = useMemo(() => {
     const data = [];
     const annualReturn = expectedReturn / 100;
     const monthlyRate = Math.pow(1 + annualReturn, 1 / 12) - 1;
@@ -68,10 +68,15 @@ export function SIPCalculator() {
     const finalMaturityValue = monthlyInvestment * ( (Math.pow(1 + monthlyRate, totalMonths) - 1) / monthlyRate ) * (1 + monthlyRate);
     totalPrincipal = monthlyInvestment * totalMonths;
 
+    const finalVal = Math.round(finalMaturityValue);
+    const investedVal = Math.round(totalPrincipal);
+    const returnsVal = finalVal - investedVal;
+
     return {
       chartData: data,
-      finalValue: Math.round(finalMaturityValue),
-      totalInvested: Math.round(totalPrincipal),
+      finalValue: finalVal,
+      totalInvested: investedVal,
+      totalReturns: returnsVal,
     };
   }, [monthlyInvestment, timeHorizon, expectedReturn]);
 
@@ -145,14 +150,18 @@ export function SIPCalculator() {
                         </BarChart>
                     </ChartContainer>
                 </div>
-                <div className="mt-4 grid grid-cols-2 gap-4 text-center p-2 bg-background rounded-lg shadow-inner">
+                <div className="mt-4 grid grid-cols-3 gap-2 text-center p-2 bg-background rounded-lg shadow-inner">
                     <div>
                         <p className="text-xs text-muted-foreground">Total Invested</p>
-                        <p className="text-lg font-bold font-headline text-accent">{formatCurrency(totalInvested)}</p>
+                        <p className="text-md font-bold font-headline text-accent">{formatCurrency(totalInvested)}</p>
+                    </div>
+                     <div>
+                        <p className="text-xs text-muted-foreground">Est. Returns</p>
+                        <p className="text-md font-bold font-headline text-accent">{formatCurrency(totalReturns)}</p>
                     </div>
                     <div>
                         <p className="text-xs text-muted-foreground">Projected Value</p>
-                        <p className="text-lg font-bold font-headline text-primary">{formatCurrency(finalValue)}</p>
+                        <p className="text-md font-bold font-headline text-primary">{formatCurrency(finalValue)}</p>
                     </div>
                 </div>
             </div>
