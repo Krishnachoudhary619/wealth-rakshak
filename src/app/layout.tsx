@@ -50,6 +50,12 @@ export const metadata: Metadata = {
     description: "Your trusted partner for mutual fund investments. Get personalized guidance on SIP, SWP, and long-term wealth creation.",
     images: [`${siteUrl}og-image.png`],
   },
+  icons: {
+    icon: [
+      { url: "/favicon.ico", sizes: "any" },
+      { url: "/favicon.png", type: "image/png" },
+    ],
+  },
 };
 
 
@@ -61,8 +67,6 @@ export default function RootLayout({
   return (
     <html lang="en" className="!scroll-smooth">
       <head>
-        <link rel="icon" href="/favicon.ico" sizes="any" />
-        <link rel="icon" href="/favicon.png" type="image/png" />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link
           rel="preconnect"
