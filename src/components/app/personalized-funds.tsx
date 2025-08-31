@@ -14,7 +14,14 @@ import {
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { AlertCircle, Bot, Contact, Loader2, Search } from "lucide-react";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { AlertCircle, Contact, Loader2, Search } from "lucide-react";
 import { Alert, AlertDescription, AlertTitle } from "../ui/alert";
 
 const initialState = {
@@ -25,7 +32,7 @@ const initialState = {
 function SubmitButton() {
   const { pending } = useFormStatus();
   return (
-    <Button type="submit" disabled={pending} className="w-full sm:w-auto shadow-md transition-transform hover:scale-105">
+    <Button type="submit" disabled={pending} className="w-full sm:w-auto shadow-md transition-transform hover:scale-105 mt-4 sm:mt-0">
       {pending ? (
         <>
           <Loader2 className="mr-2 h-4 w-4 animate-spin" />
@@ -52,21 +59,21 @@ export function PersonalizedFunds() {
             <div className="inline-block rounded-lg bg-accent/10 px-3 py-1 text-sm text-accent font-medium font-headline">Personalized Guidance</div>
             <h2 className="text-3xl font-bold font-headline tracking-tighter sm:text-5xl text-primary">Personalized Fund Options</h2>
             <p className="max-w-[900px] text-foreground/80 md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
-              Enter your age and let us provide a curated list of mutual fund options suitable for your investment horizon and risk profile.
+              Tell us a bit about yourself and let our AI provide a curated list of mutual fund options suitable for your investment horizon and risk profile.
             </p>
           </div>
         </div>
 
-        <div className="mx-auto max-w-2xl">
+        <div className="mx-auto max-w-4xl">
           <Card className="shadow-lg">
             <CardHeader>
               <CardTitle className="font-headline">Find Your Funds</CardTitle>
-              <CardDescription>Tell us your age to get started.</CardDescription>
+              <CardDescription>Tell us about your goals to get started.</CardDescription>
             </CardHeader>
             <CardContent>
-              <form action={formAction} className="space-y-4">
-                <div className="flex flex-col sm:flex-row items-end gap-4">
-                  <div className="w-full sm:flex-grow">
+              <form action={formAction} className="space-y-6">
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                  <div className="space-y-2">
                     <Label htmlFor="age">Your Age</Label>
                     <Input
                       id="age"
@@ -78,7 +85,35 @@ export function PersonalizedFunds() {
                       max="100"
                     />
                   </div>
-                  <SubmitButton />
+                  <div className="space-y-2">
+                    <Label htmlFor="riskProfile">Risk Profile</Label>
+                    <Select name="riskProfile" required>
+                      <SelectTrigger id="riskProfile">
+                        <SelectValue placeholder="Select your risk profile" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="conservative">Conservative</SelectItem>
+                        <SelectItem value="moderate">Moderate</SelectItem>
+                        <SelectItem value="aggressive">Aggressive</SelectItem>
+                      </SelectContent>
+                    </Select>
+                  </div>
+                  <div className="space-y-2">
+                    <Label htmlFor="financialGoal">Financial Goal</Label>
+                    <Select name="financialGoal" required>
+                      <SelectTrigger id="financialGoal">
+                        <SelectValue placeholder="Select your financial goal" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="wealth_creation">Wealth Creation</SelectItem>
+                        <SelectItem value="child_education">Child's Education</SelectItem>
+                        <SelectItem value="retirement_planning">Retirement Planning</SelectItem>
+                      </SelectContent>
+                    </Select>
+                  </div>
+                </div>
+                <div className="flex justify-end">
+                   <SubmitButton />
                 </div>
                 {state?.error && (
                    <Alert variant="destructive" className="mt-4">

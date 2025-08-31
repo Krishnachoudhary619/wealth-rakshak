@@ -2,8 +2,14 @@
 
 import { z } from 'zod';
 
-const ageSchema = z.object({
-  age: z.coerce.number().min(18, 'You must be at least 18 years old to get suggestions.').max(100, 'Age must be 100 or less.'),
+const suggestionSchema = z.object({
+  age: z.coerce.number().min(18, 'You must be at least 18 years old.').max(100, 'Age must be 100 or less.'),
+  riskProfile: z.enum(['conservative', 'moderate', 'aggressive'], {
+    errorMap: () => ({ message: 'Please select a valid risk profile.' }),
+  }),
+  financialGoal: z.enum(['wealth_creation', 'child_education', 'retirement_planning'], {
+    errorMap: () => ({ message: 'Please select a valid financial goal.' }),
+  }),
 });
 
 const fundOptions = [
@@ -68,34 +74,41 @@ type FundOption = {
 };
 
 type FormState = {
-    error: string | null;
-    data: FundOption[] | null;
+  error: string | null;
+  data: FundOption[] | null;
 }
 
-const getHardcodedFunds = (age: number): FundOption[] => {
-    if (age >= 18 && age <= 25) {
-        return fundOptions;
-    } else if (age > 25 && age <= 35) {
+const getHardcodedFunds = (age: number, riskProfile: string, financialGoal: string): FundOption[] => {
+    // This is a simple example. A real implementation would have more complex logic.
+    if (riskProfile === 'aggressive' || financialGoal === 'wealth_creation') {
         return fundOptions2;
-    } else {
+    } else if (age > 40 || riskProfile === 'conservative' || financialGoal === 'retirement_planning') {
         return fundOptions3;
+    } else {
+        return fundOptions;
     }
 }
 
 export async function getFundsAction(prevState: FormState, formData: FormData): Promise<FormState> {
-  const validatedFields = ageSchema.safeParse({
+  const validatedFields = suggestionSchema.safeParse({
     age: formData.get('age'),
+    riskProfile: formData.get('riskProfile'),
+    financialGoal: formData.get('financialGoal'),
   });
 
   if (!validatedFields.success) {
+    const fieldErrors = validatedFields.error.flatten().fieldErrors;
+    const errorMessage = Object.values(fieldErrors).flat()[0] || 'Invalid data provided.';
     return {
-      error: validatedFields.error.flatten().fieldErrors.age?.[0] || 'Invalid age provided.',
+      error: errorMessage,
       data: null,
     };
   }
 
   try {
-    const result = getHardcodedFunds(validatedFields.data.age);
+    const { age, riskProfile, financialGoal } = validatedFields.data;
+    const result = getHardcodedFunds(age, riskProfile, financialGoal);
+
     if (!result || result.length === 0) {
         return { error: 'Could not generate fund options at this time. Please try again later.', data: null };
     }
