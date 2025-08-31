@@ -51,7 +51,7 @@ const HeroSection = () => (
         </div>
         <div className="mx-auto aspect-video overflow-hidden rounded-xl shadow-lg">
           <video
-            src="https://videos.pexels.com/video-files/3209828/3209828-hd_1280_720_25fps.mp4"
+            src="https://www.pexels.com/download/video/14003933/"
             width={800}
             height={600}
             autoPlay

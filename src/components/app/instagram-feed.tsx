@@ -1,12 +1,12 @@
 import Image from "next/image";
 import { Button } from "../ui/button";
-import { Instagram } from "lucide-react";
+import { Instagram, ArrowUpRight } from "lucide-react";
 
 const reels = [
-    { id: 1, src: "https://i.pinimg.com/736x/ca/a3/ff/caa3ff15d553d0ae85ab6ccac99c58f8.jpg", alt: "Market insights reel", hint: "market chart" },
-    { id: 2, src: "https://i.pinimg.com/736x/07/de/a9/07dea96c25d3d0d0eead5feeafd72218.jpg", alt: "Success story reel", hint: "happy person" },
-    { id: 3, src: "https://i.pinimg.com/736x/40/ee/03/40ee03fdbf83446b9bb9078c5ea5cfb6.jpg", alt: "Investment tips reel", hint: "lightbulb idea" },
-    { id: 4, src: "https://i.pinimg.com/736x/d3/ec/a1/d3eca1cafcab35a5a130ddd1bd6ed71d.jpg", alt: "Q&A session reel", hint: "question mark" },
+    { id: 1, src: "https://media.licdn.com/dms/image/v2/D4D12AQGlTYeG7Xt2KA/article-cover_image-shrink_720_1280/B4DZbe4WEXGYAI-/0/1747496042804?e=1762387200&v=beta&t=RVKdKbr4gcgU3lO-V9dkDK0ZErqzKkAA5y-CXaMCxuE",redirect:"https://www.linkedin.com/pulse/why-i-prefer-mutual-funds-over-direct-stocks-especially-gowda-kbocf/", alt: "Market insights reel", hint: "market chart" },
+    { id: 2, src: "https://i.pinimg.com/736x/07/de/a9/07dea96c25d3d0d0eead5feeafd72218.jpg", redirect:"https://www.linkedin.com/pulse/why-i-prefer-mutual-funds-over-direct-stocks-especially-gowda-kbocf?utm_source=share&utm_medium=member_android&utm_campaign=share_via",alt: "Success story reel", hint: "happy person" },
+    { id: 3, src: "https://i.pinimg.com/736x/40/ee/03/40ee03fdbf83446b9bb9078c5ea5cfb6.jpg",redirect:"", alt: "Investment tips reel", hint: "lightbulb idea" },
+    { id: 4, src: "https://i.pinimg.com/736x/d3/ec/a1/d3eca1cafcab35a5a130ddd1bd6ed71d.jpg",redirect:"", alt: "Q&A session reel", hint: "question mark" },
 ]
 
 export function InstagramFeed() {
@@ -26,7 +26,7 @@ export function InstagramFeed() {
 
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
             {reels.map(reel => (
-                <a key={reel.id} href="https://www.instagram.com/wealth_rakshak/" target="_blank" rel="noopener noreferrer" className="group relative block overflow-hidden rounded-xl shadow-lg">
+                <a key={reel.id} href={reel.redirect} target="_blank" rel="noopener noreferrer" className="group relative block overflow-hidden rounded-xl shadow-lg">
                     <Image
                         src={reel.src}
                         alt={reel.alt}
@@ -36,8 +36,8 @@ export function InstagramFeed() {
                         className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
-                    <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                        <Instagram className="h-12 w-12 text-white" />
+                    <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-black/30">
+                        <ArrowUpRight className="h-12 w-12 text-white" />
                     </div>
                 </a>
             ))}
