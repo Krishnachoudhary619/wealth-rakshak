@@ -37,7 +37,7 @@ export const metadata: Metadata = {
     siteName: "Wealth Rakshak",
     images: [
       {
-        url: `${siteUrl}og-image.png`, // Assuming you will add an og-image.png to your public folder
+        url: `${siteUrl}og-image.png`, 
         width: 1200,
         height: 630,
         alt: "Wealth Rakshak - Financial Guidance",
@@ -49,12 +49,6 @@ export const metadata: Metadata = {
     title: "Wealth Rakshak | Your Guide to Mutual Funds & Financial Freedom",
     description: "Your trusted partner for mutual fund investments. Get personalized guidance on SIP, SWP, and long-term wealth creation.",
     images: [`${siteUrl}og-image.png`],
-  },
-  icons: {
-    icon: [
-      { url: "/favicon.ico", sizes: "any" },
-      { url: "/favicon.png", type: "image/png" },
-    ],
   },
 };
 
