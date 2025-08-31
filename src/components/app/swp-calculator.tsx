@@ -23,27 +23,37 @@ export function SWPCalculator() {
   const [monthlyWithdrawal, setMonthlyWithdrawal] = useState(1000);
   const [expectedReturn, setExpectedReturn] = useState(12);
   const [duration, setDuration] = useState(5);
-
-  const { finalValue, totalWithdrawal } = useMemo(() => {
-    const monthlyReturnRate = expectedReturn / 100 / 12;
+  
+  const { finalValue, totalWithdrawal, isDepletedEarly } = useMemo(() => {
     const totalMonths = duration * 12;
-    let currentBalance = totalInvestment;
-
-    for (let i = 0; i < totalMonths; i++) {
-        const interestEarned = currentBalance * monthlyReturnRate;
-        currentBalance += interestEarned;
-        currentBalance -= monthlyWithdrawal;
-    }
-    
-    const calculatedFinalValue = currentBalance;
+    const monthlyRate = expectedReturn / 100 / 12;
     const calculatedTotalWithdrawal = monthlyWithdrawal * totalMonths;
-
-    return { 
-        finalValue: Math.max(0, Math.round(calculatedFinalValue)), 
-        totalWithdrawal: calculatedTotalWithdrawal 
+  
+    let balance = totalInvestment;
+    let isDepletedEarly = false;
+  
+    for (let month = 1; month <= totalMonths; month++) {
+      // WITHDRAWAL FIRST (at beginning of month)
+      balance -= monthlyWithdrawal;
+      if (balance <= 0) {
+        balance = 0;
+        isDepletedEarly = true;
+        break;
+      }
+      
+      // THEN APPLY INTEREST on the remaining balance
+      balance = balance * (1 + monthlyRate);
+      
+      // Round to 2 decimal places
+      balance = Math.round(balance * 100) / 100;
+    }
+  
+    return {
+      finalValue: Math.round(balance),
+      totalWithdrawal: calculatedTotalWithdrawal,
+      isDepletedEarly,
     };
   }, [totalInvestment, monthlyWithdrawal, expectedReturn, duration]);
-
   return (
     <Card className="shadow-lg overflow-hidden flex flex-col">
       <CardHeader>
@@ -86,6 +96,13 @@ export function SWPCalculator() {
                     <Slider id="duration" value={[duration]} onValueChange={([val]) => setDuration(val)} min={1} max={30} step={1} />
                 </div>
             </div>
+            {isDepletedEarly && (
+              <div className="p-4 bg-red-50 border border-red-200 rounded-lg">
+                <p className="text-sm text-red-600 font-medium">
+                  ⚠️ Warning: Your investment may be depleted before the end of the withdrawal period with these parameters.
+                </p>
+              </div>
+            )}
         </div>
         <div className="lg:w-1/2 flex flex-col justify-center items-center space-y-8 bg-primary/5 p-6 rounded-lg">
              <div className="text-center">

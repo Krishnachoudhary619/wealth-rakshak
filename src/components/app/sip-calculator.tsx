@@ -43,27 +43,37 @@ export function SIPCalculator() {
   const [timeHorizon, setTimeHorizon] = useState(15);
   const [expectedReturn, setExpectedReturn] = useState(12);
 
-  const chartData = useMemo(() => {
+  const { chartData, finalValue, totalInvested } = useMemo(() => {
     const data = [];
-    let principal = 0;
-    let current_value = 0;
+    const annualReturn = expectedReturn / 100;
+    const monthlyRate = Math.pow(1 + annualReturn, 1 / 12) - 1;
+    const totalMonths = timeHorizon * 12;
 
+    let totalPrincipal = 0;
+    
     for (let year = 1; year <= timeHorizon; year++) {
-      let yearly_investment = monthlyInvestment * 12;
-      principal += yearly_investment;
-      current_value = (current_value + yearly_investment) * (1 + expectedReturn / 100);
+      const monthsForYear = year * 12;
+      const maturityValue = monthlyInvestment * ( (Math.pow(1 + monthlyRate, monthsForYear) - 1) / monthlyRate ) * (1 + monthlyRate);
+      
+      const investedAmount = monthlyInvestment * monthsForYear;
+      
       data.push({
         year: `Year ${year}`,
-        invested: Math.round(principal),
-        returns: Math.round(current_value - principal),
-        total: Math.round(current_value),
+        invested: Math.round(investedAmount),
+        returns: Math.round(maturityValue - investedAmount),
+        total: Math.round(maturityValue),
       });
     }
-    return data;
-  }, [monthlyInvestment, timeHorizon, expectedReturn]);
 
-  const finalValue = chartData.length > 0 ? chartData[chartData.length - 1].total : 0;
-  const totalInvested = chartData.length > 0 ? chartData[chartData.length - 1].invested : 0;
+    const finalMaturityValue = monthlyInvestment * ( (Math.pow(1 + monthlyRate, totalMonths) - 1) / monthlyRate ) * (1 + monthlyRate);
+    totalPrincipal = monthlyInvestment * totalMonths;
+
+    return {
+      chartData: data,
+      finalValue: Math.round(finalMaturityValue),
+      totalInvested: Math.round(totalPrincipal),
+    };
+  }, [monthlyInvestment, timeHorizon, expectedReturn]);
 
   return (
     <Card className="shadow-lg overflow-hidden flex flex-col">
