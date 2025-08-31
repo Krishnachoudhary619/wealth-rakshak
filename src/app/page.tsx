@@ -139,11 +139,11 @@ export default function Home() {
       <main className="flex-1">
         <HeroSection />
         <FeaturesSection />
-        <AboutUs />
         <CalculatorsSection />
         <PersonalizedFunds />
         <EducationalResources />
         <InstagramFeed />
+        <AboutUs />
         <ContactUs />
       </main>
       <Footer />
