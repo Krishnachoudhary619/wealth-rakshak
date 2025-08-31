@@ -46,8 +46,8 @@ export function Header() {
           href="#home"
           className="flex items-center gap-2 font-bold text-2xl font-headline"
         >
-          <Wallet className="h-7 w-7" />
-          <span>Wealth Rakshak</span>
+          <img src="/large-logo-2.png" alt="Wealth Rakshak Logo" className="h-24 w-auto object-contain"/>
+
         </a>
         <nav className="hidden items-center gap-6 md:flex">
           {navLinks.map((link) => (
