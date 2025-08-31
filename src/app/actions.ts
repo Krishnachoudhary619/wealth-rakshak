@@ -12,6 +12,13 @@ const suggestionSchema = z.object({
   }),
 });
 
+const contactSchema = z.object({
+    name: z.string().min(2, 'Name must be at least 2 characters.'),
+    email: z.string().email('Please enter a valid email address.'),
+    phone: z.string().min(10, 'Please enter a valid phone number.'),
+});
+
+
 const fundOptions = [
     {
       name: 'Parag Parikh Flexi Cap Fund',
@@ -73,9 +80,15 @@ type FundOption = {
     suitability: string;
 };
 
-type FormState = {
+type FundFormState = {
   error: string | null;
   data: FundOption[] | null;
+}
+
+type ContactFormState = {
+    error: string | null;
+    data: { name: string; email: string; phone: string; } | null;
+    success: boolean;
 }
 
 const getHardcodedFunds = (age: number, riskProfile: string, financialGoal: string): FundOption[] => {
@@ -89,7 +102,7 @@ const getHardcodedFunds = (age: number, riskProfile: string, financialGoal: stri
     }
 }
 
-export async function getFundsAction(prevState: FormState, formData: FormData): Promise<FormState> {
+export async function getFundsAction(prevState: FundFormState, formData: FormData): Promise<FundFormState> {
   const validatedFields = suggestionSchema.safeParse({
     age: formData.get('age'),
     riskProfile: formData.get('riskProfile'),
@@ -117,4 +130,47 @@ export async function getFundsAction(prevState: FormState, formData: FormData): 
     console.error("Fund selection error:", error);
     return { error: 'An unexpected error occurred while fetching suggestions. Please try again.', data: null };
   }
+}
+
+
+export async function saveContactAction(prevState: ContactFormState, formData: FormData): Promise<ContactFormState> {
+    const validatedFields = contactSchema.safeParse({
+        name: formData.get('name'),
+        email: formData.get('email'),
+        phone: formData.get('phone'),
+    });
+
+    if (!validatedFields.success) {
+        const fieldErrors = validatedFields.error.flatten().fieldErrors;
+        const errorMessage = Object.values(fieldErrors).flat()[0] || 'Invalid data provided.';
+        return {
+            error: errorMessage,
+            data: null,
+            success: false,
+        };
+    }
+
+    try {
+        const { name, email, phone } = validatedFields.data;
+        
+        // *******************************************************************
+        // DEVELOPER TODO: Google Sheets Integration
+        // The form data is validated and available in the `name`, `email`, 
+        // and `phone` variables. You can now use a library like 'google-spreadsheet'
+        // or the Google Sheets API to append this data to your sheet.
+        //
+        // Example steps:
+        // 1. Install 'google-spreadsheet': `npm install google-spreadsheet`
+        // 2. Set up a Google Service Account and get credentials.
+        // 3. Share your Google Sheet with the service account's email.
+        // 4. Use the library to authenticate and append the data.
+        // *******************************************************************
+        console.log('Contact form submitted:', { name, email, phone });
+
+
+        return { error: null, data: validatedFields.data, success: true };
+    } catch (error) {
+        console.error("Contact form submission error:", error);
+        return { error: 'An unexpected error occurred. Please try again.', data: null, success: false };
+    }
 }

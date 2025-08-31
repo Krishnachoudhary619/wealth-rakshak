@@ -5,6 +5,7 @@ import { CompoundingVisualizer } from "@/components/app/compounding-visualizer";
 import { PersonalizedFunds } from "@/components/app/personalized-funds";
 import { InstagramFeed } from "@/components/app/instagram-feed";
 import { EducationalResources } from "@/components/app/educational-resources";
+import { ContactUs } from "@/components/app/contact-us";
 import { Target, ShieldCheck } from "lucide-react";
 import Image from "next/image";
 
@@ -47,7 +48,7 @@ const HeroSection = () => (
           </div>
         </div>
         <Image
-          src="https://zenithfinserve.in/wp-content/uploads/2025/01/5-Jan-2023-XX-Things-You-Need-To-Know-About-Mutual-Fund-NAV-12.png"
+          src="https://picsum.photos/800/600"
           alt="A person happily planning their finances"
           width={800}
           height={600}
@@ -116,6 +117,7 @@ export default function Home() {
         <PersonalizedFunds />
         <EducationalResources />
         <InstagramFeed />
+        <ContactUs />
       </main>
       <Footer />
     </div>
