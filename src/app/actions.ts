@@ -1,5 +1,6 @@
 'use server';
 
+import { addRowToSheet } from '@/services/google-sheets';
 import { z } from 'zod';
 
 const suggestionSchema = z.object({
@@ -153,21 +154,12 @@ export async function saveContactAction(prevState: ContactFormState, formData: F
     try {
         const { name, email, phone } = validatedFields.data;
         
-        // *******************************************************************
-        // DEVELOPER TODO: Google Sheets Integration
-        // The form data is validated and available in the `name`, `email`, 
-        // and `phone` variables. You can now use a library like 'google-spreadsheet'
-        // or the Google Sheets API to append this data to your sheet.
-        //
-        // Example steps:
-        // 1. Install 'google-spreadsheet': `npm install google-spreadsheet`
-        // 2. Set up a Google Service Account and get credentials.
-        // 3. Share your Google Sheet with the service account's email.
-        // 4. Use the library to authenticate and append the data.
-        // *******************************************************************
-        console.log('Contact form submitted:', { name, email, phone });
-
-
+        await addRowToSheet({
+            Name: name,
+            Email: email,
+            Phone: phone
+        });
+        
         return { error: null, data: validatedFields.data, success: true };
     } catch (error) {
         console.error("Contact form submission error:", error);
