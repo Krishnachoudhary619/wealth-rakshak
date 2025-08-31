@@ -9,19 +9,23 @@ import { GraduationCap } from "lucide-react";
 const resources = [
     {
         question: "What is a Mutual Fund?",
-        answer: "A mutual fund is a professionally managed investment fund that pools money from many investors to purchase a diversified portfolio of stocks, bonds, or other securities. This diversification helps spread out risk."
+        answer: "A mutual fund pools money from many investors and invests in equity, debt, or gold. It gives you diversification, professional management, and easy access to multiple investments."
     },
     {
-        question: "What is a Systematic Investment Plan (SIP)?",
-        answer: "A SIP is a method of investing in mutual funds where you invest a fixed amount of money at regular intervals (e.g., monthly). It helps in rupee cost averaging and develops a disciplined investing habit."
+        question: "What is SIP & Power of Compounding?",
+        answer: "A SIP (Systematic Investment Plan) in mutual funds lets you invest small amounts regularly. With compounding, these small investments grow into a big corpus over time."
     },
     {
-        question: "How does the Power of Compounding work?",
-        answer: "Compounding is the process where your investment returns themselves start earning returns. Over time, this can lead to exponential growth of your money. The longer your money stays invested, the more powerful compounding becomes."
+        question: "What is SWP (Systematic Withdrawal Plan)?",
+        answer: "An SWP in mutual funds lets you withdraw a fixed amount regularly from your investment. It’s useful for creating a steady income while your remaining money keeps growing."
     },
     {
-        question: "What is risk tolerance?",
-        answer: "Risk tolerance is an investor's ability and willingness to withstand large swings in the value of their investments. It's a crucial factor in determining the right investment strategy, as higher-risk investments typically have the potential for higher returns, and vice-versa."
+        question: "What is Risk Tolerance?",
+        answer: "Mutual funds come with different levels of risk. Risk tolerance is your comfort with market ups and downs, based on your age, goals, and financial situation."
+    },
+    {
+        question: "What is Asset Allocation?",
+        answer: "Mutual funds allow you to spread money across equity, debt, and gold. Asset allocation balances risk and return, aligning your portfolio with your goals and time horizon."
     }
 ]
 
