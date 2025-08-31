@@ -48,14 +48,18 @@ const HeroSection = () => (
             </Button>
           </div>
         </div>
-        <Image
-          src="https://zenithfinserve.in/wp-content/uploads/2025/01/5-Jan-2023-XX-Things-You-Need-To-Know-About-Mutual-Fund-NAV-12.png"
-          alt="A person happily planning their finances"
-          width={800}
-          height={600}
-          className="mx-auto aspect-video overflow-hidden rounded-xl object-cover shadow-lg"
-          data-ai-hint="financial growth chart"
-        />
+        <div className="mx-auto aspect-video overflow-hidden rounded-xl shadow-lg">
+          <video
+            src="https://videos.pexels.com/video-files/3209828/3209828-hd_1280_720_25fps.mp4"
+            width={800}
+            height={600}
+            autoPlay
+            loop
+            muted
+            playsInline
+            className="h-full w-full object-cover"
+          />
+        </div>
       </div>
     </div>
   </section>
