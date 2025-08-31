@@ -1,5 +1,4 @@
-import { Instagram, Wallet } from "lucide-react";
-import { Phone } from "lucide-react";
+import { Instagram, Linkedin, Wallet } from "lucide-react";
 
 // A simple SVG for WhatsApp icon
 const WhatsAppIcon = (props: React.SVGProps<SVGSVGElement>) => (
@@ -56,13 +55,13 @@ export function Footer() {
               Ready to start your investment journey? Reach out for a personalized consultation.
             </p>
             <div className="flex space-x-4">
-              <a href="https://wa.me/910000000000" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 bg-accent/20 text-white py-2 px-4 rounded-full hover:bg-accent/30 transition-colors">
+              <a href="https://wa.me/919987065319" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 bg-accent/20 text-white py-2 px-4 rounded-full hover:bg-accent/30 transition-colors">
                 <WhatsAppIcon className="h-5 w-5" />
                 <span>WhatsApp</span>
               </a>
-              <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 bg-accent/20 text-white py-2 px-4 rounded-full hover:bg-accent/30 transition-colors">
-                <Instagram className="h-5 w-5" />
-                <span>Instagram</span>
+              <a href="https://www.linkedin.com/company/wealth-rakshak/" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 bg-accent/20 text-white py-2 px-4 rounded-full hover:bg-accent/30 transition-colors">
+                <Linkedin className="h-5 w-5" />
+                <span>LinkedIn</span>
               </a>
             </div>
           </div>
@@ -75,4 +74,3 @@ export function Footer() {
     </footer>
   );
 }
-

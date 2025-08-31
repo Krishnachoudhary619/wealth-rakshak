@@ -26,7 +26,7 @@ export function InstagramFeed() {
 
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
             {reels.map(reel => (
-                <a key={reel.id} href="https://instagram.com" target="_blank" rel="noopener noreferrer" className="group relative block overflow-hidden rounded-xl shadow-lg">
+                <a key={reel.id} href="https://www.instagram.com/wealth_rakshak/" target="_blank" rel="noopener noreferrer" className="group relative block overflow-hidden rounded-xl shadow-lg">
                     <Image
                         src={reel.src}
                         alt={reel.alt}
@@ -44,7 +44,7 @@ export function InstagramFeed() {
         </div>
         <div className="text-center mt-12">
             <Button asChild size="lg" className="bg-primary hover:bg-primary/90 text-primary-foreground shadow-md transition-transform hover:scale-105">
-                <a href="https://instagram.com" target="_blank" rel="noopener noreferrer">
+                <a href="https://www.instagram.com/wealth_rakshak/" target="_blank" rel="noopener noreferrer">
                     <Instagram className="mr-2 h-5 w-5" />
                     Follow on Instagram
                 </a>
