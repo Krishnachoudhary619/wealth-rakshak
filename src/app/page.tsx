@@ -47,7 +47,7 @@ const HeroSection = () => (
           </div>
         </div>
         <Image
-          src="https://picsum.photos/800/600"
+          src="https://zenithfinserve.in/wp-content/uploads/2025/01/5-Jan-2023-XX-Things-You-Need-To-Know-About-Mutual-Fund-NAV-12.png"
           alt="A person happily planning their finances"
           width={800}
           height={600}
