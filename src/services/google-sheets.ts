@@ -16,7 +16,8 @@ const GOOGLE_SHEET_ID = '1zJoW8l0aVk6fvRAVE62jVmbINuIsGaGp-OP3NoKVW-E';
 //    - `GOOGLE_PRIVATE_KEY`: The 'private_key' from your JSON key file. Make sure to format it correctly, often by replacing '\\n' with actual newlines.
 const serviceAccountAuth = new JWT({
     email: process.env.GOOGLE_SERVICE_ACCOUNT_EMAIL,
-    key: process.env.GOOGLE_PRIVATE_KEY?.replace(/\\n/g, '\n'),
+    // The private key must be properly formatted with newlines to avoid parsing errors.
+    key: (process.env.GOOGLE_PRIVATE_KEY || '').replace(/\\n/g, '\n'),
     scopes: [
         'https://www.googleapis.com/auth/spreadsheets',
     ],
