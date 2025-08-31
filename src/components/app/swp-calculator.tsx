@@ -19,27 +19,25 @@ const formatCurrency = (value: number) =>
   }).format(value);
 
 export function SWPCalculator() {
-  const [totalInvestment, setTotalInvestment] = useState(500000);
-  const [monthlyWithdrawal, setMonthlyWithdrawal] = useState(10000);
-  const [expectedReturn, setExpectedReturn] = useState(8);
+  const [totalInvestment, setTotalInvestment] = useState(50000);
+  const [monthlyWithdrawal, setMonthlyWithdrawal] = useState(1000);
+  const [expectedReturn, setExpectedReturn] = useState(12);
   const [duration, setDuration] = useState(5);
 
   const { finalValue, totalWithdrawal } = useMemo(() => {
     const monthlyReturnRate = expectedReturn / 100 / 12;
     const totalMonths = duration * 12;
 
-    // Standard formula for future value of an investment with regular withdrawals:
-    // FV = P(1+r)^n - W * [((1+r)^n - 1) / r]
-    // P = Principal (totalInvestment)
-    // r = monthly return rate
-    // n = number of months
-    // W = monthly withdrawal
+    let balance = totalInvestment;
 
-    const futureValueOfPrincipal = totalInvestment * Math.pow(1 + monthlyReturnRate, totalMonths);
-    const futureValueOfWithdrawals = monthlyWithdrawal * ((Math.pow(1 + monthlyReturnRate, totalMonths) - 1) / monthlyReturnRate);
+    for (let i = 0; i < totalMonths; i++) {
+        // Add interest for the month
+        balance += balance * monthlyReturnRate;
+        // Subtract the withdrawal
+        balance -= monthlyWithdrawal;
+    }
     
-    const calculatedFinalValue = futureValueOfPrincipal - futureValueOfWithdrawals;
-
+    const calculatedFinalValue = balance;
     const calculatedTotalWithdrawal = monthlyWithdrawal * totalMonths;
 
     return { 
