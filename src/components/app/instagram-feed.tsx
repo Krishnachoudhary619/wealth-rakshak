@@ -3,14 +3,15 @@ import { Button } from "../ui/button";
 import { Instagram } from "lucide-react";
 
 const reels = [
-    { id: 1, src: "https://picsum.photos/300/500?random=1", alt: "Market insights reel", hint: "market chart" },
-    { id: 2, src: "https://picsum.photos/300/500?random=2", alt: "Success story reel", hint: "happy person" },
-    { id: 3, src: "https://picsum.photos/300/500?random=3", alt: "Investment tips reel", hint: "lightbulb idea" },
-    { id: 4, src: "https://picsum.photos/300/500?random=4", alt: "Q&A session reel", hint: "question mark" },
+    { id: 1, src: "https://i.pinimg.com/736x/ca/a3/ff/caa3ff15d553d0ae85ab6ccac99c58f8.jpg", alt: "Market insights reel", hint: "market chart" },
+    { id: 2, src: "https://i.pinimg.com/736x/07/de/a9/07dea96c25d3d0d0eead5feeafd72218.jpg", alt: "Success story reel", hint: "happy person" },
+    { id: 3, src: "https://i.pinimg.com/736x/40/ee/03/40ee03fdbf83446b9bb9078c5ea5cfb6.jpg", alt: "Investment tips reel", hint: "lightbulb idea" },
+    { id: 4, src: "https://i.pinimg.com/736x/d3/ec/a1/d3eca1cafcab35a5a130ddd1bd6ed71d.jpg", alt: "Q&A session reel", hint: "question mark" },
 ]
 
 export function InstagramFeed() {
   return (
+
     <section id="social" className="w-full py-12 md:py-24 lg:py-32 bg-primary/5">
       <div className="container mx-auto px-4 md:px-6">
         <div className="flex flex-col items-center justify-center space-y-4 text-center mb-12">
