@@ -9,9 +9,8 @@ import {
   SheetTitle,
   SheetClose,
 } from "@/components/ui/sheet";
-import { Menu } from "lucide-react";
+import { Menu, Wallet } from "lucide-react";
 import { cn } from "@/lib/utils";
-import Image from "next/image";
 
 const navLinks = [
   { href: "#home", label: "Home" },
@@ -45,9 +44,10 @@ export function Header() {
       <div className="container mx-auto flex h-20 items-center justify-between px-4 md:px-6">
         <a
           href="#home"
-          className="flex items-center gap-2"
+          className="flex items-center gap-2 font-bold text-2xl font-headline"
         >
-          <Image src="/logo.png" alt="Wealth Rakshak Logo" width={140} height={40} />
+          <Wallet className="h-7 w-7" />
+          <span>Wealth Rakshak</span>
         </a>
         <nav className="hidden items-center gap-6 md:flex">
           {navLinks.map((link) => (
@@ -76,10 +76,11 @@ export function Header() {
               <div className="grid gap-6 p-6">
                 <a
                   href="#home"
-                  className="flex items-center gap-2"
+                  className="flex items-center gap-2 font-bold text-xl font-headline"
                   onClick={() => setIsMenuOpen(false)}
                 >
-                  <Image src="/logo.png" alt="Wealth Rakshak Logo" width={140} height={40} />
+                  <Wallet className="h-6 w-6" />
+                  <span>Wealth Rakshak</span>
                 </a>
                 <nav className="grid gap-4">
                   {navLinks.map((link) => (
