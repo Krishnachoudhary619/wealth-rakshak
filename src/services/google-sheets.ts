@@ -13,10 +13,11 @@ const GOOGLE_SHEET_ID = '1zJoW8l0aVk6fvRAVE62jVmbINuIsGaGp-OP3NoKVW-E';
 
 // 3. Set the following environment variables in your deployment environment (e.g., Vercel).
 //    - `GOOGLE_SERVICE_ACCOUNT_EMAIL`: The 'client_email' from your JSON key file.
-//    - `GOOGLE_PRIVATE_KEY`: The 'private_key' from your JSON key file. Make sure to format it correctly, often by replacing '\\n' with actual newlines.
+//    - `GOOGLE_PRIVATE_KEY`: The 'private_key' from your JSON key file. Ensure you copy the entire string, including the BEGIN and END markers, and that newlines are correctly escaped.
 const serviceAccountAuth = new JWT({
     email: process.env.GOOGLE_SERVICE_ACCOUNT_EMAIL,
-    // The private key must be properly formatted with newlines to avoid parsing errors.
+    // The private key must be properly formatted. This handles the escaped newlines
+    // that Vercel and other platforms use for multi-line environment variables.
     key: (process.env.GOOGLE_PRIVATE_KEY || '').replace(/\\n/g, '\n'),
     scopes: [
         'https://www.googleapis.com/auth/spreadsheets',
