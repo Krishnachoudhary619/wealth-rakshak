@@ -73,7 +73,7 @@ export function SWPCalculator() {
                     <Label htmlFor="swp-expected-return" className="text-sm">Expected Return (%)</Label>
                     <span className="font-bold font-headline text-primary text-lg">{expectedReturn}%</span>
                     </div>
-                    <Slider id="swp-expected-return" value={[expectedReturn]} onValueChange={([val]) => setExpectedReturn(val)} min={1} max={30} step={1} />
+                    <Slider id="swp-expected-return" value={[expectedReturn]} onValueChange={([val]) => setExpectedReturn(val)} min={1} max={40} step={1} />
                 </div>
                 <div className="space-y-2">
                     <div className="flex justify-between items-center">

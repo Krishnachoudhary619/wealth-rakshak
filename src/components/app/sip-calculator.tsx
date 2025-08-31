@@ -92,7 +92,7 @@ export function SIPCalculator() {
                     <Label htmlFor="expected-return" className="text-sm">Expected Return (%)</Label>
                     <span className="font-bold font-headline text-primary text-lg">{expectedReturn}%</span>
                     </div>
-                    <Slider id="expected-return" value={[expectedReturn]} onValueChange={([val]) => setExpectedReturn(val)} min={1} max={25} step={1} />
+                    <Slider id="expected-return" value={[expectedReturn]} onValueChange={([val]) => setExpectedReturn(val)} min={1} max={40} step={1} />
                 </div>
             </div>
             <div className="flex-1 flex flex-col h-[300px] bg-primary/5 p-4 rounded-lg">
