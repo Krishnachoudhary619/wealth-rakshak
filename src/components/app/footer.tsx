@@ -69,6 +69,9 @@ export function Footer() {
 
         <div className="mt-12 border-t border-primary-foreground/20 pt-8 text-center text-sm text-primary-foreground/70">
           <p>&copy; {year} Wealth Rakshak. All Rights Reserved.</p>
+          <p className="mt-4 text-xs text-primary-foreground/60 max-w-4xl mx-auto">
+            Disclaimer: Mutual Fund investments are subject to market risks. Please read all scheme-related documents carefully before investing. We are AMFI registered mutual fund distributors (ARN holder) and not SEBI registered investment advisers. The information provided on this website is for educational and informational purposes only and should not be considered as investment advice. Past performance may or may not be sustained in the future. Investors are requested to consult with their financial advisor and make their own investment decisions.
+          </p>
         </div>
       </div>
     </footer>
